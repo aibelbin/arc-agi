@@ -1,11 +1,17 @@
 from analysis import ARCParser, ARCAnalyzer
+import argparse
 
 def main():
     print("ARC-AGI Analysis")
     print("=" * 30)
-    
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--split", choices=["training", "test", "evaluation"], default="training",
+                    help="Dataset split to analyze")
+    args = ap.parse_args()
+
     parser = ARCParser()
-    parser.load_data()
+    parser.load_data(args.split)
     analyzer = ARCAnalyzer(parser)
     
     summary = analyzer.get_dataset_summary()
