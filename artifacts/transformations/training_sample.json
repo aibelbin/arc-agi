@@ -1,0 +1,308 @@
+[
+  {
+    "split": "training",
+    "task_id": "00576224",
+    "subset": "train",
+    "index": 0,
+    "in_shape": [
+      2,
+      2
+    ],
+    "out_shape": [
+      6,
+      6
+    ],
+    "transform_label": "scaling_x3",
+    "scale_k": 3,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": true
+  },
+  {
+    "split": "training",
+    "task_id": "00576224",
+    "subset": "train",
+    "index": 1,
+    "in_shape": [
+      2,
+      2
+    ],
+    "out_shape": [
+      6,
+      6
+    ],
+    "transform_label": "scaling_x3",
+    "scale_k": 3,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": true
+  },
+  {
+    "split": "training",
+    "task_id": "00576224",
+    "subset": "test",
+    "index": 0,
+    "in_shape": [
+      2,
+      2
+    ],
+    "out_shape": null,
+    "transform_label": null,
+    "scale_k": null,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": false
+  },
+  {
+    "split": "training",
+    "task_id": "007bbfb7",
+    "subset": "train",
+    "index": 0,
+    "in_shape": [
+      3,
+      3
+    ],
+    "out_shape": [
+      9,
+      9
+    ],
+    "transform_label": "scaling_x3",
+    "scale_k": 3,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": true
+  },
+  {
+    "split": "training",
+    "task_id": "007bbfb7",
+    "subset": "train",
+    "index": 1,
+    "in_shape": [
+      3,
+      3
+    ],
+    "out_shape": [
+      9,
+      9
+    ],
+    "transform_label": "scaling_x3",
+    "scale_k": 3,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": true
+  },
+  {
+    "split": "training",
+    "task_id": "007bbfb7",
+    "subset": "train",
+    "index": 2,
+    "in_shape": [
+      3,
+      3
+    ],
+    "out_shape": [
+      9,
+      9
+    ],
+    "transform_label": "scaling_x3",
+    "scale_k": 3,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": true
+  },
+  {
+    "split": "training",
+    "task_id": "007bbfb7",
+    "subset": "train",
+    "index": 3,
+    "in_shape": [
+      3,
+      3
+    ],
+    "out_shape": [
+      9,
+      9
+    ],
+    "transform_label": "scaling_x3",
+    "scale_k": 3,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": true
+  },
+  {
+    "split": "training",
+    "task_id": "007bbfb7",
+    "subset": "train",
+    "index": 4,
+    "in_shape": [
+      3,
+      3
+    ],
+    "out_shape": [
+      9,
+      9
+    ],
+    "transform_label": "scaling_x3",
+    "scale_k": 3,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": true
+  },
+  {
+    "split": "training",
+    "task_id": "007bbfb7",
+    "subset": "test",
+    "index": 0,
+    "in_shape": [
+      3,
+      3
+    ],
+    "out_shape": null,
+    "transform_label": null,
+    "scale_k": null,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": false
+  },
+  {
+    "split": "training",
+    "task_id": "009d5c81",
+    "subset": "train",
+    "index": 0,
+    "in_shape": [
+      14,
+      14
+    ],
+    "out_shape": [
+      14,
+      14
+    ],
+    "transform_label": "other_same_shape",
+    "scale_k": null,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": true
+  },
+  {
+    "split": "training",
+    "task_id": "009d5c81",
+    "subset": "train",
+    "index": 1,
+    "in_shape": [
+      14,
+      14
+    ],
+    "out_shape": [
+      14,
+      14
+    ],
+    "transform_label": "other_same_shape",
+    "scale_k": null,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": true
+  },
+  {
+    "split": "training",
+    "task_id": "009d5c81",
+    "subset": "train",
+    "index": 2,
+    "in_shape": [
+      14,
+      14
+    ],
+    "out_shape": [
+      14,
+      14
+    ],
+    "transform_label": "other_same_shape",
+    "scale_k": null,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": true
+  },
+  {
+    "split": "training",
+    "task_id": "009d5c81",
+    "subset": "train",
+    "index": 3,
+    "in_shape": [
+      14,
+      14
+    ],
+    "out_shape": [
+      14,
+      14
+    ],
+    "transform_label": "other_same_shape",
+    "scale_k": null,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": true
+  },
+  {
+    "split": "training",
+    "task_id": "009d5c81",
+    "subset": "train",
+    "index": 4,
+    "in_shape": [
+      14,
+      14
+    ],
+    "out_shape": [
+      14,
+      14
+    ],
+    "transform_label": "other_same_shape",
+    "scale_k": null,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": true
+  },
+  {
+    "split": "training",
+    "task_id": "009d5c81",
+    "subset": "test",
+    "index": 0,
+    "in_shape": [
+      14,
+      14
+    ],
+    "out_shape": null,
+    "transform_label": null,
+    "scale_k": null,
+    "tiling_type": null,
+    "color_mapping": null,
+    "is_bijective": null,
+    "affine_mod10": null,
+    "has_output": false
+  }
+]

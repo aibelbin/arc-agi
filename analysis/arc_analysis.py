@@ -85,18 +85,28 @@ class ARCAnalyzer:
         input_array = np.array(input_grid)
         output_array = np.array(output_grid)
 
-        same_shape = input_array.shape == output_array.shape
+        def as_2d_shape(arr: np.ndarray) -> tuple[int, int]:
+            if arr.ndim == 2:
+                return arr.shape[0], arr.shape[1]
+            if arr.ndim == 1:
+                return 1, arr.shape[0]
+            # Fallback for unexpected ndim
+            return int(arr.size), 1
+
+        same_shape = as_2d_shape(input_array) == as_2d_shape(output_array)
 
         if same_shape:
-            if np.array_equal(output_array, np.rot90(input_array)):
-                return "rotation_90"
-            elif np.array_equal(output_array, np.rot90(input_array, 2)):
-                return "rotation_180"
-            elif np.array_equal(output_array, np.flipud(input_array)):
-                return "flip_vertical"
-            elif np.array_equal(output_array, np.fliplr(input_array)):
-                return "flip_horizontal"
-            elif self._is_color_permutation(input_array, output_array):
+            # Only attempt geometric ops when both are 2D
+            if input_array.ndim == 2 and output_array.ndim == 2:
+                if np.array_equal(output_array, np.rot90(input_array)):
+                    return "rotation_90"
+                elif np.array_equal(output_array, np.rot90(input_array, 2)):
+                    return "rotation_180"
+                elif np.array_equal(output_array, np.flipud(input_array)):
+                    return "flip_vertical"
+                elif np.array_equal(output_array, np.fliplr(input_array)):
+                    return "flip_horizontal"
+            if self._is_color_permutation(input_array, output_array):
                 return "color_permutation"
             elif not np.array_equal(input_array, output_array):
                 return "other_same_shape"
@@ -105,12 +115,12 @@ class ARCAnalyzer:
 
         # Handle enlargements that could be scaling or tiling
         if output_array.size > input_array.size:
-            h_out, w_out = output_array.shape
-            h_in, w_in = input_array.shape
+            h_out, w_out = as_2d_shape(output_array)
+            h_in, w_in = as_2d_shape(input_array)
             if h_out % h_in == 0 and w_out % w_in == 0:
                 k_h = h_out // h_in
                 k_w = w_out // w_in
-                if k_h == k_w:
+                if k_h == k_w and input_array.ndim == 2 and output_array.ndim == 2:
                     k = k_h
                     # mirrored tiling
                     mirrored = self._build_mirrored_tiling(input_array, k)
