@@ -27,7 +27,6 @@ from typing import Dict, Iterable, List, Optional, Tuple
 
 import numpy as np
 
-# Ensure repo root on sys.path to import analysis package
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
@@ -68,7 +67,6 @@ def load_matrix(path: Path) -> np.ndarray:
 
 
 def extract_index(name: str) -> int:
-    # Expect filenames like '0_input.csv' or '12_output.npy'
     m = re.match(r"^(\d+)_", name)
     if not m:
         raise ValueError(f"Cannot extract index from filename: {name}")
@@ -95,7 +93,6 @@ def compute_color_mapping(a: np.ndarray, b: np.ndarray) -> Optional[Dict[int, in
 
 
 def fit_affine_mod10(mapping: Dict[int, int]) -> Optional[Tuple[int, int]]:
-    # Try all a,b in 0..9 for small domain, accept if holds for all seen x
     if not mapping:
         return None
     domain = list(mapping.keys())
@@ -167,13 +164,12 @@ def main(argv: Optional[List[str]] = None) -> int:
         out_name = f"{splits[0] if len(splits)==1 else 'all'}.json"
         out_path = out_dir / out_name
 
-    analyzer = ARCAnalyzer(None)  # parser not needed for single-example analysis
+    analyzer = ARCAnalyzer(None)
 
     reports: List[ExampleReport] = []
     for split in splits:
         split_dir = src_root / split
         if not split_dir.exists():
-            # Skip missing splits silently
             continue
         task_dirs = sorted([p for p in split_dir.iterdir() if p.is_dir()])
         if args.limit is not None:
@@ -184,7 +180,6 @@ def main(argv: Optional[List[str]] = None) -> int:
                 subdir = task_dir / subset
                 if not subdir.exists():
                     continue
-                # Build index set based on available input files
                 candidates = []
                 for p in subdir.iterdir():
                     if not p.is_file():
@@ -199,7 +194,6 @@ def main(argv: Optional[List[str]] = None) -> int:
 
                 for in_path in sorted(candidates, key=lambda x: extract_index(x.name)):
                     idx = extract_index(in_path.name)
-                    # Derive output path with same idx
                     out_ext = ".csv" if in_path.suffix == ".csv" else ".npy"
                     out_path_candidate = subdir / f"{idx}_output{out_ext}"
 
@@ -225,7 +219,6 @@ def main(argv: Optional[List[str]] = None) -> int:
                     )
                     reports.append(rep)
 
-    # Serialize to JSON (convert numpy types to int)
     def normalize(obj):
         if isinstance(obj, np.generic):
             return obj.item()

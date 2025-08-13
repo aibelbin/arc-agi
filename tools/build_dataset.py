@@ -46,7 +46,7 @@ from typing import Iterable, List, Optional
 import numpy as np
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-PYTHON = sys.executable  # current interpreter/venv
+PYTHON = sys.executable
 
 
 def iter_splits(spec: str) -> Iterable[str]:
@@ -103,7 +103,6 @@ def build_dataset_for_split(split: str, matrices_root: Path, transform_report: P
     written = 0
     with out_path.open("w") as w:
         for r in records:
-            # We require outputs to be present for supervised training
             if not r.get("has_output"):
                 continue
 
@@ -111,10 +110,8 @@ def build_dataset_for_split(split: str, matrices_root: Path, transform_report: P
             idx = r["index"]
             task_id = r["task_id"]
 
-            # Input/Output matrix paths
             subdir = matrices_root / split / task_id / subset
             in_path = subdir / f"{idx}_input.{fmt}"
-            # In case fmt=='auto' from report, try csv then npy
             if not in_path.exists():
                 alt = subdir / f"{idx}_input.csv"
                 if alt.exists():
@@ -134,7 +131,6 @@ def build_dataset_for_split(split: str, matrices_root: Path, transform_report: P
                         out_path_mat = alt
 
             if not in_path.exists() or not out_path_mat.exists():
-                # Skip incomplete
                 continue
 
             inp = load_matrix(in_path)
@@ -182,15 +178,12 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     total_written = 0
     for split in iter_splits(args.split):
-        # 1) Export matrices
         run_export(split, matrices_dir, args.format, args.overwrite, args.limit)
 
-        # 2) Find transformations -> JSON report per split
         transforms_dir.mkdir(parents=True, exist_ok=True)
         report_path = transforms_dir / f"{split}.json"
         run_find_transformations(split, matrices_dir, report_path, args.format, args.limit)
 
-        # 3) Build dataset JSONL
         datasets_dir.mkdir(parents=True, exist_ok=True)
         out_path = datasets_dir / f"{split}.jsonl"
         written = build_dataset_for_split(split, matrices_dir, report_path, args.format, out_path)

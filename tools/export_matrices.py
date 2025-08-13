@@ -22,12 +22,10 @@ from typing import Iterable
 
 import numpy as np
 
-# Ensure repo root is on sys.path so 'analysis' package can be imported
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-# Import parser from analysis package
 from analysis import ARCParser
 
 
@@ -72,16 +70,13 @@ def main(argv: list[str] | None = None) -> int:
         data_parser = ARCParser()
         data_parser.load_data(split)
 
-        # Solutions may be missing (e.g., test split). Use if available.
         solutions = data_parser.training_solutions or {}
 
-        # task_id -> task object with keys 'train' and 'test'
         tasks_iter = data_parser.training_data.items()
         if args.limit is not None:
             tasks_iter = list(tasks_iter)[: args.limit]
 
         for task_id, task in tasks_iter:
-            # Train examples (always have outputs)
             for i, ex in enumerate(task.get("train", [])):
                 inp = to_matrix(ex["input"]) if isinstance(ex, dict) else to_matrix(ex[0])
                 out = to_matrix(ex["output"]) if isinstance(ex, dict) else to_matrix(ex[1])
@@ -95,7 +90,6 @@ def main(argv: list[str] | None = None) -> int:
                     save_matrix(out, out_path, args.format)
                 total_written += 2
 
-            # Test examples (outputs may be absent unless solutions provided for split)
             test_examples = task.get("test", [])
             task_solutions = solutions.get(task_id, {}) if isinstance(solutions, dict) else {}
             sol_tests = task_solutions.get("test", []) if isinstance(task_solutions, dict) else []
@@ -108,7 +102,6 @@ def main(argv: list[str] | None = None) -> int:
                     save_matrix(inp, in_path, args.format)
                     total_written += 1
 
-                # If we have a corresponding solution output, save it too
                 if i < len(sol_tests):
                     out_grid = sol_tests[i]
                     out = to_matrix(out_grid)
