@@ -1,32 +1,4 @@
-"""ARC-AGI JSON -> tensor dataset converter.
 
-Steps:
-1. Load ARC-AGI JSON challenge files.
-2. Iterate tasks; for each train and test example convert input/output grids to one-hot tensors.
-3. Save tensors to disk under processed/ directory preserving task and split structure.
-
-Grid encoding:
-- Colors 0-9 (standard ARC) + optionally detect any extra color ids; dynamic channel count = max_color+1 (capped at 20 for safety).
-- One-hot shape: (C, H, W). Value 1.0 at channel=color.
-- Also store raw integer tensor (H, W) for convenience.
-
-Outputs:
-processed/
-  meta.json                      # summary metadata
-  task_<id>/
-    train/example_<i>_input.pt
-    train/example_<i>_output.pt
-    test/example_<j>_input.pt
-    test/example_<j>_output.pt (if present in solutions file)
-
-Usage (after installing requirements incl. torch):
-  python tools/json_to_tensors.py --challenges default/arc-agi_training_challenges.json \
-      --solutions default/arc-agi_training_solutions.json --out processed/train
-
-  python tools/json_to_tensors.py --challenges default/arc-agi_test_challenges.json --out processed/test
-
-If solutions file omitted, only inputs (and any provided outputs in train section) are saved.
-"""
 from __future__ import annotations
 import json, argparse, os, math
 from pathlib import Path
